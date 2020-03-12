@@ -1,0 +1,36 @@
+.block {
+  width: 450px;
+  /*height: 80px;*/
+  background: #dddfc7;
+  margin-left: 140px;
+  border-radius: 10px 10px 10px 0px;
+  position: relative;
+  padding-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 10px;
+  box-sizing: border-box;
+  text-align: left;
+}
+.block::before {
+
+  content: " ";
+  position: absolute;
+  bottom: 0px;
+  left: -30px;
+  border-right: 30px solid #dddfc7;
+  border-top: 20px solid transparent;
+}
+.time {
+  position: absolute;
+  bottom: 5px;
+  right: -20px;
+  background: none;
+  border: none;
+  color: #888585;
+}
+
+.lastName {
+  color: #a80201;
+  text-align: left;
+  font-weight: 600;
+}
