@@ -1,0 +1,9 @@
+.block {
+  margin: 0 auto;
+  margin-top: 20px;
+    width: 600px;
+    background: #df7a6e;
+    border: 5px solid;
+    padding: 20px;
+    box-sizing: border-box;
+}
