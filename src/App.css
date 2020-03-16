@@ -1,9 +1,9 @@
 .App {
-  background: url("https://i.pinimg.com/originals/1e/3f/b8/1e3fb82aeb807c4e4711b31889c16b67.jpg");
-  width: 800px;
-  height: 600px;
-  text-align: center;
-  margin: 0 auto;
-  padding: 10px;
+    background: url("https://i.pinimg.com/originals/1e/3f/b8/1e3fb82aeb807c4e4711b31889c16b67.jpg");
+    width: 800px;
+    height: 600px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px;
 
 }
