@@ -5,8 +5,10 @@ import qua from './Quality.module.css'
 class Quality extends React.Component {
 
     render = () => {
+
+
         return (
-            <div className={qua.block}>
+            <div className={this.props.activeSkill}>
                 <div>{this.props.skill}</div>
             </div>
         );

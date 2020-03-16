@@ -11,11 +11,14 @@ class App extends React.Component {
             {skill: "комуннист"},
             {skill: "анимешник"}
             ];
+
+    ChooseActiveSkill=0;
+
     render = () => {
         return (
             <div className="App">
                 <MyComponent/>
-                <Qualities arraySkills={this.arraySkills}/>
+                <Qualities arraySkills={this.arraySkills} numberSkill={this.ChooseActiveSkill}/>
             </div>
         );
     }
