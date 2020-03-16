@@ -20,9 +20,10 @@ class App extends React.Component {
 
     onClickActions = () => {
         let asd = this.messageForAlert.current.value;
-        let newNumber = (this.state.number + 1)
-        this.setState({number: newNumber})
-        alert(asd);
+        if (asd){let newNumber = (this.state.number + 1)
+            this.setState({number: newNumber})
+            alert(asd);}
+        this.messageForAlert.current.value="";
     }
 
 
