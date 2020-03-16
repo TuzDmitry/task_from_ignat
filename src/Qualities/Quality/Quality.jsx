@@ -10,6 +10,7 @@ class Quality extends React.Component {
         return (
             <div className={this.props.activeSkill}>
                 <div>{this.props.skill}</div>
+                <div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
             </div>
         );
     }

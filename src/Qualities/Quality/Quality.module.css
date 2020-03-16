@@ -1,15 +1,16 @@
 .block {
-  width: 200px;
-  height: 80px;
-  background: #dfd40a;
-  margin-left: 100px;
+    width: 200px;
+    height: 80px;
+    background: #dfd40a;
+    margin-left: 100px;
     margin-bottom: 10px;
-  padding: 5px;
-  box-sizing: border-box;
-  text-align: left;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: left;
     border: 2px dashed green;
+    word-wrap: break-word;
 }
 
-.active_block{
-  background: #df000d;
+.active_block {
+    background: #df000d;
 }
