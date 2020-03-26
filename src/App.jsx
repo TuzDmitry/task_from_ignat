@@ -15,15 +15,15 @@ class App extends React.Component {
 
     ChooseActiveSkill = 0;
 
-    messageForAlert = React.createRef();
-    state = {number: 5};
+    inputNameRef = React.createRef();
+    state = {nameCounter: 0};
 
-    onClickActions = () => {
-        let asd = this.messageForAlert.current.value;
-        if (asd){let newNumber = (this.state.number + 1)
-            this.setState({number: newNumber})
-            alert(asd);}
-        this.messageForAlert.current.value="";
+    getNameForAlert = () => {
+        let currentName = this.inputNameRef.current.value;
+        if (currentName){let newNumber = (this.state.nameCounter + 1)
+            this.setState({nameCounter: newNumber})
+            alert(currentName);}
+        this.inputNameRef.current.value="";
     }
 
 
@@ -32,7 +32,7 @@ class App extends React.Component {
             <div className="App">
                 <MyComponent/>
                 <Qualities arraySkills={this.arraySkills} numberSkill={this.ChooseActiveSkill}/>
-                <Component3 number={this.state.number} transFunc={this.onClickActions} name={this.messageForAlert}/>
+                <Component3 nameCounter={this.state.nameCounter} getNameForAlert={this.getNameForAlert} inputNameRef={this.inputNameRef}/>
             </div>
         );
     }
