@@ -15,15 +15,14 @@ class App extends React.Component {
 
     ChooseActiveSkill = 0;
 
-    inputNameRef = React.createRef();
     state = {nameCounter: 0};
 
-    getNameForAlert = () => {
-        let currentName = this.inputNameRef.current.value;
-        if (currentName){let newNumber = (this.state.nameCounter + 1)
+    getNameForAlert = (currentName) => {
+        if (currentName) {
+            let newNumber = (this.state.nameCounter + 1)
             this.setState({nameCounter: newNumber})
-            alert(currentName);}
-        this.inputNameRef.current.value="";
+            alert(currentName);
+        }
     }
 
 
@@ -32,7 +31,8 @@ class App extends React.Component {
             <div className="App">
                 <MyComponent/>
                 <Qualities arraySkills={this.arraySkills} numberSkill={this.ChooseActiveSkill}/>
-                <Component3 nameCounter={this.state.nameCounter} getNameForAlert={this.getNameForAlert} inputNameRef={this.inputNameRef}/>
+                <Component3 nameCounter={this.state.nameCounter}
+                            getNameForAlert={this.getNameForAlert}/>
             </div>
         );
     }
