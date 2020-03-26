@@ -4,6 +4,8 @@
     padding: 20px;
     border: 4px solid red;
     background: #dfd40a;
+    display: flex;
+    justify-content: space-between;
 }
 
 .sp {
@@ -17,4 +19,15 @@
 
 .but {
     background: #cc6967;
+}
+
+.listNames {
+    width: 150px;
+    background: rgb(178, 118, 204);
+    padding: 5px;
+}
+
+.NameItem {
+    background: #dddfc7;
+    border: 1px solid;
 }

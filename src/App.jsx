@@ -15,13 +15,22 @@ class App extends React.Component {
 
     ChooseActiveSkill = 0;
 
-    state = {nameCounter: 0};
+    state = {
+        listOfNames: [
+            // {name: "Alla"},
+            // {name: "Sasha"}
+        ]
+    };
+
 
     getNameForAlert = (currentName) => {
         if (currentName) {
-            let newNumber = (this.state.nameCounter + 1)
-            this.setState({nameCounter: newNumber})
-            alert(currentName);
+
+            let newName = {name: currentName}
+            let newNames = [...this.state.listOfNames, newName];
+
+            this.setState({listOfNames: newNames});
+            // alert(currentName);
         }
     }
 
@@ -31,7 +40,7 @@ class App extends React.Component {
             <div className="App">
                 <MyComponent/>
                 <Qualities arraySkills={this.arraySkills} numberSkill={this.ChooseActiveSkill}/>
-                <Component3 nameCounter={this.state.nameCounter}
+                <Component3 state={this.state}
                             getNameForAlert={this.getNameForAlert}/>
             </div>
         );
