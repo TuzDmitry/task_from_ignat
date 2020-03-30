@@ -1,5 +1,5 @@
 import React from 'react';
-import qua from './Quality.module.css'
+// import qua from './Quality.module.css'
 
 
 class Quality extends React.Component {
