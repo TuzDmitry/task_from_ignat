@@ -8,7 +8,8 @@ class InnerButton extends React.Component {
     render = () => {
         return (
             <div className="">
-                <button className={style.but} onClick={this.props.getName}>Push me</button>
+                <button className={style.but}
+                        onClick={this.props.getName}>Push me</button>
             </div>
         );
     }

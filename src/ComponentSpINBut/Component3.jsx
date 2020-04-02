@@ -7,13 +7,37 @@ import InnerInput from "./Components3Parts/InnerInput";
 import InnerListOfNames from "./Components3Parts/InnerListOfNames";
 
 class Component3 extends React.Component {
-    inputNameRef = React.createRef();
+    // inputNameRef = React.createRef();
+
+    state = {
+        error: true,
+        title: ""
+    }
+
+    onChangeInput = (e) => {
+        let n = e.currentTarget.value;
+        this.setState({
+            title: n,
+            error: true
+        })
+        console.log(this.state)
+    }
+
 
     getName = () => {
-        let currentName = this.inputNameRef.current.value;
-        this.props.getNameForAlert(currentName)
-        this.inputNameRef.current.value = "";
+        // let currentName = this.inputNameRef.current.value;
+        let currentName = this.state.title;
+        this.setState({title: ''})
+
+        if (!this.state.title) {
+            this.setState({error: false})
+        } else {
+            this.props.getNameForAlert(currentName)
+            this.setState({error: true})
+        }
     }
+
+    // onPressEnter=()=>
 
     render = () => {
         return (
@@ -21,7 +45,11 @@ class Component3 extends React.Component {
                 <div>
                     <InnerSpan nameCounter={this.props.state.listOfNames.length}/>
 
-                    <InnerInput inputNameRef={this.inputNameRef}/>
+                    <InnerInput state={this.state}
+                                getName={this.getName}
+                                onChangeInput={this.onChangeInput}
+                        // inputNameRef={this.inputNameRef}
+                    />
 
                     <InnerButton getName={this.getName}/>
                 </div>
