@@ -1,0 +1,39 @@
+.bar {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+
+}
+
+.barButton {
+    width: 20px;
+    background-image: url("http://cdn.onlinewebfonts.com/svg/img_70641.png");
+    background-size: 45px;
+}
+
+.barButtonShow {
+    background-position-x: -26px;
+}
+
+.barButtonHide {
+    background-position-x: 1px;
+}
+
+
+.barPanel {
+    padding-left: 10px;
+
+    background-color: rgba(119, 111, 128, 0.39);
+    padding-right: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.activeLink {
+    color: yellow;
+}
+
+.barItem {
+}

@@ -5,5 +5,8 @@
     text-align: center;
     margin: 0 auto;
     padding: 10px;
-
+    display: grid;
+    grid-template-columns: 100px auto;
 }
+
+

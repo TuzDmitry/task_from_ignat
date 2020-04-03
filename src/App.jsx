@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
-import MyComponent from "./MyComponent/MyComponent";
-import Qualities from "./Qualities/Qualities";
-import Component3 from "./ComponentSpINBut/Component3";
+
+import NavBar from "./NavBar/NavBar";
+import Monday from "./Monday/Monday";
+import Tuesday from "./Tuesday/Tuesday";
+import {Route} from "react-router-dom";
+
 
 class App extends React.Component {
 
@@ -38,10 +41,17 @@ class App extends React.Component {
     render = () => {
         return (
             <div className="App">
-                <MyComponent/>
-                <Qualities arraySkills={this.arraySkills} numberSkill={this.ChooseActiveSkill}/>
-                <Component3 state={this.state}
-                            getNameForAlert={this.getNameForAlert}/>
+                <div>
+                    <NavBar/>
+                </div>
+                <div className="app-wrapper">
+                    <Route path='/monday' render={() => <Monday arraySkills={this.arraySkills}
+                                                                numberSkill={this.ChooseActiveSkill}
+                                                                state={this.state}
+                                                                getNameForAlert={this.getNameForAlert}/>}/>
+                    <Route path='/tuesday' render={() => <Tuesday/>}/>
+
+                </div>
             </div>
         );
     }
