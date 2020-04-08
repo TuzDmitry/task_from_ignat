@@ -23,26 +23,21 @@ class TodoList extends React.Component {
     }
 
     saveState = () => {
-        ////устанавливаем в localStorage под ключом "our-state"  наш стейт переделанный в  джейсон строку JSON.stringify(this.state)
+        ////джейсон прими наш стейт JSON.stringify(this.state)
         localStorage.setItem("our-state", JSON.stringify(this.state));
     }
 
     restoreState = () => {
-        /////объявляем наш стартовый стейт
         let state = {
             tasks: [],
             filterValue: "All"
         }
-        //// считываем сохраненную ранее строку из localStorage
         let stateAsString = localStorage.getItem("our-state")
-        ////если таковая есть, то превращаем строку в объект и призваиваем стейту знаение из стораджа.
         if (stateAsString) {
             state = JSON.parse(stateAsString);
         }
-        ////устанавливаем стейт или пустой или востановленный в стейт
+
         this.setState(state, () => {
-            ////одним махом в колбек сделаем сравнение счётчика для id
-            // this.nextTaskId = this.state.tasks.length   код который можено заменить на строчки 46-50
             this.state.tasks.forEach(task => {
                 if (task.id >= this.nextTaskId) {
                     this.nextTaskId = task.id + 1
@@ -55,11 +50,15 @@ class TodoList extends React.Component {
         let newTask = {id: this.nextTaskId, title: newText, isDone: false, priority: 'low'};
         this.nextTaskId++;
         let newTasks = [...this.state.tasks, newTask] ///...this.state.tasks-- раскукоживаем старый массив
-        this.setState({tasks: newTasks}, this.saveState) ///setState- метод реагирующий на изменение св-ва state
+        this.setState({
+            tasks: newTasks
+        }, this.saveState) ///setState- метод реагирующий на изменение св-ва state
+
     }
 
     changeFilter = (newfilterValue) => {
         this.setState({filterValue: newfilterValue}, this.saveState);
+        // alert(`Hello ${name}`);
     }
 
     changeTask = (taskId, newPropsObj) => {
