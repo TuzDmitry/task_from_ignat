@@ -1,7 +1,7 @@
 import React from 'react';
-import MyComponent from "../MyComponent/MyComponent";
-import Qualities from "../Qualities/Qualities";
-import Component3 from "../ComponentSpINBut/Component3";
+import MyComponent from "./MyComponent/MyComponent";
+import Qualities from "./Qualities/Qualities";
+import Component3 from "./ComponentSpINBut/Component3";
 
 
 class Monday extends React.Component {

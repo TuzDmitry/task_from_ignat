@@ -1,0 +1,37 @@
+.Todo {
+  margin: 0 auto;
+  width: 400px;
+background-color: bisque;
+}
+
+.todoList {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.todoList > div {
+  padding: 10px;
+}
+
+.todoList-task {
+  opacity: 1;
+}
+.filter-active {background: red;}
+.btn:hover {background: yellow;}
+.btn:active {background: green;}
+.error {
+  border-color: red;
+}
+
+.done {
+  opacity: 0.5;
+}
+
+.btnHideShow {
+  border: 2px solid seagreen;
+  background-color: yellow;
+  font-weight: bold;
+  font-size: 20px;
+  width: 70px;
+  margin: 0 auto;
+}
