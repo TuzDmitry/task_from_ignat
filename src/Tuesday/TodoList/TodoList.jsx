@@ -11,9 +11,18 @@ class TodoList extends React.Component {
     nextTaskId = 0;
 
     componentDidMount() {
-        // this.restoreState()
-        let x=restoreState()
-        this.setState(x, () => {this.nextTaskId = this.state.tasks.length})
+        let x = restoreState()
+        this.setState(x, () => {
+            // debugger;
+            this.nextTaskId = this.state.tasks.length
+            //////---------------------либо же
+            // this.state.tasks.forEach(task => {
+            //             if (task.id >= this.nextTaskId) {
+            //                 this.nextTaskId = task.id + 1
+            //             }
+            //         })
+            /////-----------------------------
+        })
 
 
     }
@@ -31,39 +40,63 @@ class TodoList extends React.Component {
     // }
 
 
-    restoreState = () => {
-        /////объявляем наш стартовый стейт
-        let state = {
-            tasks: [],
-            filterValue: "All"
-        }
-        //// считываем сохраненную ранее строку из localStorage
-        let stateAsString = localStorage.getItem("our-state")
-        ////если таковая есть, то превращаем строку в объект и призваиваем стейту знаение из стораджа.
-        if (stateAsString) {
-            state = JSON.parse(stateAsString);
-        }
-        ////устанавливаем стейт или пустой или востановленный в стейт
-        this.setState(state, () => {
-            ////одним махом в колбек сделаем сравнение счётчика для id
-            // this.nextTaskId = this.state.tasks.length   код который можено заменить на 4 строчки ниже
-            this.state.tasks.forEach(task => {
-                if (task.id >= this.nextTaskId) {
-                    this.nextTaskId = task.id + 1
-                }
-            })
-        })
-    }
+    // restoreState = () => {
+    //     /////объявляем наш стартовый стейт
+    //     let state = {
+    //         tasks: [],
+    //         filterValue: "All"
+    //     }
+    //     //// считываем сохраненную ранее строку из localStorage
+    //     let stateAsString = localStorage.getItem("our-state")
+    //     ////если таковая есть, то превращаем строку в объект и призваиваем стейту знаение из стораджа.
+    //     if (stateAsString) {
+    //         state = JSON.parse(stateAsString);
+    //     }
+    //     ////устанавливаем стейт или пустой или востановленный в стейт
+    //     this.setState(state, () => {
+    //         ////одним махом в колбек сделаем сравнение счётчика для id
+    //         // this.nextTaskId = this.state.tasks.length   код который можено заменить на 4 строчки ниже
+    //         this.state.tasks.forEach(task => {
+    //             if (task.id >= this.nextTaskId) {
+    //                 this.nextTaskId = task.id + 1
+    //             }
+    //         })
+    //     })
+    // }
 
     addTask = (newText) => {
         let newTask = {id: this.nextTaskId, title: newText, isDone: false, priority: 'low'};
         this.nextTaskId++;
         let newTasks = [...this.state.tasks, newTask] ///...this.state.tasks-- раскукоживаем старый массив
-        this.setState({tasks: newTasks}, ()=>saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
+        this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
+    }
+    deleteTask = (taskId) => {
+        // alert(taskId)
+        ///скопировали массив тасок в новую переменную
+        let newTasks=[...this.state.tasks]
+        ///убираем таску которую хотим удалить
+        newTasks= newTasks.filter ((t)=>t.id!==taskId)
+        ////переписали массив тасок с актуальными id
+        newTasks =newTasks.map((t, index)=>{
+               return {...t, id:index}
+             })
+
+        ///----------------------------------------------------/код -равнозначный  строкам 78-82
+        // newTasks.splice(taskId, 1)
+        // newTasks =newTasks.map((t, index)=>{
+        //
+        //     return {...t, id:index}
+        // })
+        ///----------------------------------------------------
+        ///уменьшили переменную для следующего id
+        --this.nextTaskId;
+         // debugger;
+        this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
     }
 
+
     changeFilter = (newfilterValue) => {
-        this.setState({filterValue: newfilterValue}, ()=>saveState(this.state));
+        this.setState({filterValue: newfilterValue}, () => saveState(this.state));
     }
 
     changeTask = (taskId, newPropsObj) => {
@@ -75,7 +108,9 @@ class TodoList extends React.Component {
             }
         });
 
-        this.setState({tasks: newTasks}, () => {saveState(this.state)});
+        this.setState({tasks: newTasks}, () => {
+            saveState(this.state)
+        });
     }
 
     changeStatus = (taskId, isDone) => {
@@ -85,14 +120,6 @@ class TodoList extends React.Component {
     changeTitle = (taskId, newtitle) => {
         this.changeTask(taskId, {title: newtitle})
     }
-    // changeTitle=(taskId, newtitle)=>{
-    //     let newTasks = this.state.tasks.map(t=>{
-    //         if (t.id!==taskId){return t}
-    //         else {return {...t, title: newtitle}}
-    //     });
-    //
-    //     this.setState({tasks: newTasks});
-    // }
 
 
     render = () => {
@@ -104,6 +131,7 @@ class TodoList extends React.Component {
                     <TodoListTasks
                         changeTitle={this.changeTitle}
                         changeStatus={this.changeStatus}
+                        deleteTask={this.deleteTask}
                         tasks={this.state.tasks.filter(t => {
                                 switch (this.state.filterValue) {
                                     case "All":

@@ -14,7 +14,7 @@ class TodoListTask extends React.Component {
         // alert(e.currentTarget.checked);
     }
     onCloseClick=()=>{
-        alert('hey')
+        this.props.deleteTask(this.props.task.id)
     }
 
     state = {
