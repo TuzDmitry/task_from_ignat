@@ -3,29 +3,33 @@ import './TodoList.css';
 import TodoListHeader from "./todoComponents/TodoListHeader";
 import TodoListTasks from "./todoComponents/TodoListTasks";
 import TodoListFooter from "./todoComponents/TodoListFooter";
+import {saveState, restoreState} from "./functions";
+
 // import PropTypes from "prop-types";
 
 class TodoList extends React.Component {
     nextTaskId = 0;
 
     componentDidMount() {
-        this.restoreState()
+        // this.restoreState()
+        let x=restoreState()
+        this.setState(x, () => {this.nextTaskId = this.state.tasks.length})
+
+
     }
 
     state = {
         tasks: [
             // {id: 1, title: "JS", isDone: true, priority: 'low'},
             // {id: 2, title: "HTML", isDone: true, priority: 'high'},
-            // {id: 3, title: "CSS", isDone: true, priority: 'low'},
-            // {id: 4, title: "SaSS", isDone: false, priority: 'high'},
-            // {id: 5, title: "React", isDone: false, priority: 'low'},
         ], filterValue: "All"
     }
 
-    saveState = () => {
-        ////устанавливаем в localStorage под ключом "our-state"  наш стейт переделанный в  джейсон строку JSON.stringify(this.state)
-        localStorage.setItem("our-state", JSON.stringify(this.state));
-    }
+    // saveState = () => {
+    //     ////устанавливаем в localStorage под ключом "our-state"  наш стейт переделанный в  джейсон строку JSON.stringify(this.state)
+    //     localStorage.setItem("our-state", JSON.stringify(this.state));
+    // }
+
 
     restoreState = () => {
         /////объявляем наш стартовый стейт
@@ -42,7 +46,7 @@ class TodoList extends React.Component {
         ////устанавливаем стейт или пустой или востановленный в стейт
         this.setState(state, () => {
             ////одним махом в колбек сделаем сравнение счётчика для id
-            // this.nextTaskId = this.state.tasks.length   код который можено заменить на строчки 46-50
+            // this.nextTaskId = this.state.tasks.length   код который можено заменить на 4 строчки ниже
             this.state.tasks.forEach(task => {
                 if (task.id >= this.nextTaskId) {
                     this.nextTaskId = task.id + 1
@@ -55,11 +59,11 @@ class TodoList extends React.Component {
         let newTask = {id: this.nextTaskId, title: newText, isDone: false, priority: 'low'};
         this.nextTaskId++;
         let newTasks = [...this.state.tasks, newTask] ///...this.state.tasks-- раскукоживаем старый массив
-        this.setState({tasks: newTasks}, this.saveState) ///setState- метод реагирующий на изменение св-ва state
+        this.setState({tasks: newTasks}, ()=>saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
     }
 
     changeFilter = (newfilterValue) => {
-        this.setState({filterValue: newfilterValue}, this.saveState);
+        this.setState({filterValue: newfilterValue}, ()=>saveState(this.state));
     }
 
     changeTask = (taskId, newPropsObj) => {
@@ -71,9 +75,7 @@ class TodoList extends React.Component {
             }
         });
 
-        this.setState({tasks: newTasks}, () => {
-            this.saveState()
-        });
+        this.setState({tasks: newTasks}, () => {saveState(this.state)});
     }
 
     changeStatus = (taskId, isDone) => {

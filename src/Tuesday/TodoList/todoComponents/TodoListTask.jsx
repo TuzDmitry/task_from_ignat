@@ -13,6 +13,9 @@ class TodoListTask extends React.Component {
         this.props.changeTitle(this.props.task.id, e.currentTarget.value)
         // alert(e.currentTarget.checked);
     }
+    onCloseClick=()=>{
+        alert('hey')
+    }
 
     state = {
         editMode: false
@@ -32,26 +35,25 @@ class TodoListTask extends React.Component {
     render = () => {
         let classForIsDone = this.props.task.isDone ? "done" : "todoList-task";
         return (
-            <div>
-                <div>
-                    <div className={classForIsDone}>
-                        <input type="checkbox" onChange={this.onIsDoneChanged} checked={this.props.task.isDone}/>
+            <div className='taskContainer'>
+                <div className={classForIsDone}>
+                    <input type="checkbox" onChange={this.onIsDoneChanged} checked={this.props.task.isDone}/>
 
-                        <span>{this.props.task.id}</span>
-                        {
-                            this.state.editMode
-                                ? <input onBlur={this.deActivateEditMode}
-                                         onChange={this.onTitleChanged}
-                                         value={this.props.task.title}
-                                         autoFocus={true}/>
-                                : <span onClick={this.activateEditMode}>-{this.props.task.title},</span>
-                        }
+                    <span>{this.props.task.id}</span>
+                    {
+                        this.state.editMode
+                            ? <input onBlur={this.deActivateEditMode}
+                                     onChange={this.onTitleChanged}
+                                     value={this.props.task.title}
+                                     autoFocus={true}/>
+                            : <span onClick={this.activateEditMode}>-{this.props.task.title},</span>
+                    }
 
-                        {/*<span onClick={this.activateEditMode}>-{this.props.task.title},</span>*/}
-                        <span>priority:{this.props.task.priority}</span>
+                    {/*<span onClick={this.activateEditMode}>-{this.props.task.title},</span>*/}
+                    <span>priority:{this.props.task.priority} </span>
 
-                    </div>
                 </div>
+                <button onClick={this.onCloseClick}>x</button>
             </div>
         );
     }
