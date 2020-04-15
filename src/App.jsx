@@ -8,6 +8,9 @@ import {Route} from "react-router-dom";
 
 
 class App extends React.Component {
+    componentDidMount() {
+        setTimeout(()=>{this.setState({loading:false})}, 3000)
+    }
 
     arraySkills =
         [
@@ -19,6 +22,7 @@ class App extends React.Component {
     ChooseActiveSkill = 0;
 
     state = {
+        loading:true,
         listOfNames: [
             // {name: "Alla"},
             // {name: "Sasha"}
@@ -41,17 +45,20 @@ class App extends React.Component {
     render = () => {
         return (
             <div className="App">
-                <div>
-                    <NavBar/>
-                </div>
-                <div className="app-wrapper">
-                    <Route path='/monday' render={() => <Monday arraySkills={this.arraySkills}
-                                                                numberSkill={this.ChooseActiveSkill}
-                                                                state={this.state}
-                                                                getNameForAlert={this.getNameForAlert}/>}/>
-                    <Route path='/tuesday' render={() => <Tuesday/>}/>
+                {this.state.loading&&<div>ЗДЕСЬ БУДЕТ КОМПОНЕНТА ЗАГРУЗКИ КОТОРАЯ БУДЕТ ПОКАЗЫВАТЬСЯ 3 СЕКУНДЫ</div>}
+                {!this.state.loading&&<>
+                   <div>
+                       <NavBar/>
+                   </div>
+                   <div className="app-wrapper">
+                       <Route path='/monday' render={() => <Monday arraySkills={this.arraySkills}
+                                                                   numberSkill={this.ChooseActiveSkill}
+                                                                   state={this.state}
+                                                                   getNameForAlert={this.getNameForAlert}/>}/>
+                       <Route path='/tuesday' render={() => <Tuesday/>}/>
 
-                </div>
+                   </div>
+               </>}
             </div>
         );
     }
