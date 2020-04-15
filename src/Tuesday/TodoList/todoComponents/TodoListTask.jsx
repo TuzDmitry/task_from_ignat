@@ -10,25 +10,35 @@ class TodoListTask extends React.Component {
     }
 
     onTitleChanged = (e) => {
-        this.props.changeTitle(this.props.task.id, e.currentTarget.value)
-        // alert(e.currentTarget.checked);
+        this.props.changeTitle(this.props.task.id, e.currentTarget.value, e.currentTarget.name)
+        // debugger
+        // alert(e.currentTarget.name);
     }
-    onCloseClick=()=>{
+    onCloseClick = () => {
         this.props.deleteTask(this.props.task.id)
     }
 
     state = {
-        editMode: false
+        editContentMode: false,
+        editPriorityMode: false
     }
     activateEditMode = () => {
         this.setState({
-            editMode: true
+            editContentMode: true
         })
     }
     deActivateEditMode = () => {
         this.setState({
-            editMode: false
+            editContentMode: false
         })
+    }
+    onSelectChanged = (e) => {
+        debugger
+        // alert(e.currentTarget.value)
+        alert(e.currentTarget)
+        // alert(e)
+        // this.props.changeTitle(this.props.task.id, e.currentTarget.value)
+        // alert(e.currentTarget.checked);
     }
 
 
@@ -41,16 +51,32 @@ class TodoListTask extends React.Component {
 
                     <span>{this.props.task.id}</span>
                     {
-                        this.state.editMode
+                        this.state.editContentMode
                             ? <input onBlur={this.deActivateEditMode}
                                      onChange={this.onTitleChanged}
                                      value={this.props.task.title}
+                                     name={'editorTask'}
                                      autoFocus={true}/>
                             : <span onClick={this.activateEditMode}>-{this.props.task.title},</span>
                     }
 
-                    {/*<span onClick={this.activateEditMode}>-{this.props.task.title},</span>*/}
-                    <span>priority:{this.props.task.priority} </span>
+                    <span>priority:
+                        {
+                            this.state.editPriorityMode
+                                ? <select multiple size="1"
+                                          onBlur={() => this.setState({editPriorityMode: false})}
+                                          name={'editorPriority'}
+                                          onChange={this.onTitleChanged} >
+                                    <option>low</option>
+                                    <option>medium</option>
+                                    <option>hight</option>
+                                </select>
+
+                                : <span onClick={() => this.setState({editPriorityMode: true})}>
+                                {this.props.task.priority}
+                            </span>
+                        }
+                    </span>
 
                 </div>
                 <button onClick={this.onCloseClick}>x</button>

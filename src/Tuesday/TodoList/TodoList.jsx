@@ -73,13 +73,13 @@ class TodoList extends React.Component {
     deleteTask = (taskId) => {
         // alert(taskId)
         ///скопировали массив тасок в новую переменную
-        let newTasks=[...this.state.tasks]
+        let newTasks = [...this.state.tasks]
         ///убираем таску которую хотим удалить
-        newTasks= newTasks.filter ((t)=>t.id!==taskId)
+        newTasks = newTasks.filter((t) => t.id !== taskId)
         ////переписали массив тасок с актуальными id
-        newTasks =newTasks.map((t, index)=>{
-               return {...t, id:index}
-             })
+        newTasks = newTasks.map((t, index) => {
+            return {...t, id: index}
+        })
 
         ///----------------------------------------------------/код -равнозначный  строкам 78-82
         // newTasks.splice(taskId, 1)
@@ -90,7 +90,7 @@ class TodoList extends React.Component {
         ///----------------------------------------------------
         ///уменьшили переменную для следующего id
         --this.nextTaskId;
-         // debugger;
+        // debugger;
         this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
     }
 
@@ -117,8 +117,14 @@ class TodoList extends React.Component {
         this.changeTask(taskId, {isDone: isDone})
     }
 
-    changeTitle = (taskId, newtitle) => {
-        this.changeTask(taskId, {title: newtitle})
+    changeTitle = (taskId, newtitle, action) => {
+        if (action === 'editorTask') {
+            this.changeTask(taskId, {title: newtitle})
+        } else if (action === 'editorPriority') {
+            {
+                this.changeTask(taskId, {priority: newtitle})
+            }
+        }
     }
 
 
