@@ -1,19 +1,27 @@
 import React from "react"
 import PropTypes from 'prop-types';
+import {upDatePriorityActionCreator, upDateTitleActionCreator} from "../TodoList";
 
 
 class TodoListTask extends React.Component {
 
     onIsDoneChanged = (e) => {
         this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
-        // alert(e.currentTarget.checked);
     }
 
     onTitleChanged = (e) => {
-        this.props.changeTitle(this.props.task.id, e.currentTarget.value, e.currentTarget.name)
-        // debugger
-        // alert(e.currentTarget.name);
+        let text = e.currentTarget.value;
+        let id = this.props.task.id;
+        let action = upDateTitleActionCreator(text, id);
+        this.props.pseudoDispatch(action)
     }
+    onPriorityChanged = (e) => {
+        let value = e.currentTarget.value;
+        let id = this.props.task.id;
+        let action = upDatePriorityActionCreator(value, id)
+        this.props.pseudoDispatch(action)
+    }
+
     onCloseClick = () => {
         this.props.deleteTask(this.props.task.id)
     }
@@ -32,15 +40,6 @@ class TodoListTask extends React.Component {
             editContentMode: false
         })
     }
-    onSelectChanged = (e) => {
-        debugger
-        // alert(e.currentTarget.value)
-        alert(e.currentTarget)
-        // alert(e)
-        // this.props.changeTitle(this.props.task.id, e.currentTarget.value)
-        // alert(e.currentTarget.checked);
-    }
-
 
     render = () => {
         let classForIsDone = this.props.task.isDone ? "done" : "todoList-task";
@@ -55,7 +54,6 @@ class TodoListTask extends React.Component {
                             ? <input onBlur={this.deActivateEditMode}
                                      onChange={this.onTitleChanged}
                                      value={this.props.task.title}
-                                     name={'editorTask'}
                                      autoFocus={true}/>
                             : <span onClick={this.activateEditMode}>-{this.props.task.title},</span>
                     }
@@ -65,8 +63,7 @@ class TodoListTask extends React.Component {
                             this.state.editPriorityMode
                                 ? <select multiple size="1"
                                           onBlur={() => this.setState({editPriorityMode: false})}
-                                          name={'editorPriority'}
-                                          onChange={this.onTitleChanged} >
+                                          onChange={this.onPriorityChanged}>
                                     <option>low</option>
                                     <option>medium</option>
                                     <option>hight</option>

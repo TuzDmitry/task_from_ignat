@@ -6,6 +6,9 @@ import TodoListFooter from "./todoComponents/TodoListFooter";
 import {saveState, restoreState} from "./functions";
 
 // import PropTypes from "prop-types";
+const UPADATE_PRIORITY_VALUE = 'UPADATE_PRIORITY_VALUE';
+const UPADATE_TITLE_TEXT='UPADATE_TITLE_TEXT';
+
 
 class TodoList extends React.Component {
     nextTaskId = 0;
@@ -71,7 +74,6 @@ class TodoList extends React.Component {
         this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
     }
     deleteTask = (taskId) => {
-        // alert(taskId)
         ///скопировали массив тасок в новую переменную
         let newTasks = [...this.state.tasks]
         ///убираем таску которую хотим удалить
@@ -117,12 +119,12 @@ class TodoList extends React.Component {
         this.changeTask(taskId, {isDone: isDone})
     }
 
-    changeTitle = (taskId, newtitle, action) => {
-        if (action === 'editorTask') {
-            this.changeTask(taskId, {title: newtitle})
-        } else if (action === 'editorPriority') {
+    pseudoDispatch = (action) => {
+        if (action.type === UPADATE_TITLE_TEXT) {
+            this.changeTask(action.id, {title: action.newText})
+        } else if (action.type === UPADATE_PRIORITY_VALUE) {
             {
-                this.changeTask(taskId, {priority: newtitle})
+                this.changeTask(action.id, {priority: action.newValue})
             }
         }
     }
@@ -135,7 +137,7 @@ class TodoList extends React.Component {
                 <div className="todoList">
                     <TodoListHeader addTask={this.addTask}/>
                     <TodoListTasks
-                        changeTitle={this.changeTitle}
+                        pseudoDispatch={this.pseudoDispatch}
                         changeStatus={this.changeStatus}
                         deleteTask={this.deleteTask}
                         tasks={this.state.tasks.filter(t => {
@@ -149,9 +151,6 @@ class TodoList extends React.Component {
                                     default:
                                         return true;
                                 }
-                                // if(this.state.filterValue==="All"){return true}
-                                // if(this.state.filterValue==="Completed"){return t.isDone}
-                                // if(this.state.filterValue==="Active"){return t.isDone===false}
                             }
                         )}/>
                     <TodoListFooter changeFilter={this.changeFilter} filterValue={this.state.filterValue}/>
@@ -162,6 +161,11 @@ class TodoList extends React.Component {
 }
 
 export default TodoList;
+
+
+export const upDateTitleActionCreator = (text, id) => ({type: UPADATE_TITLE_TEXT, newText: text, id: id})
+export const upDatePriorityActionCreator = (value, id) => ({type: UPADATE_PRIORITY_VALUE, newValue: value, id: id})
+
 
 // App.propTypes = {
 //     // _________: PropTypes.string
