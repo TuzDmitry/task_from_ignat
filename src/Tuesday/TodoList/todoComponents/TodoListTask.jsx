@@ -61,7 +61,7 @@ class TodoListTask extends React.Component {
                     <span>priority:
                         {
                             this.state.editPriorityMode
-                                ? <select multiple size="1"
+                                ? <select size="1"
                                           onBlur={() => this.setState({editPriorityMode: false})}
                                           onChange={this.onPriorityChanged}>
                                     <option>low</option>
