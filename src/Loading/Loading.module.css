@@ -1,0 +1,90 @@
+.loadingContainer {
+    display: flex;
+    margin: auto;
+}
+
+.loadingBlock {
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+}
+
+@-moz-keyframes transforming {
+    0% {transform: translateX(0px)}
+    1% {opacity: 0}
+    11% {opacity: 0}
+
+    33% {transform: translateX(20px);
+        opacity: 1}
+    34% {opacity: 0}
+    44% {opacity: 0}
+    66% {transform: translateX(40px);
+        opacity: 1}
+    67%{opacity: 0;}
+    77%{opacity: 0;}
+}
+
+@-webkit-keyframes transforming {
+    0% {transform: translateX(0px)}
+    1% {opacity: 0}
+    11% {opacity: 0}
+
+    33% {transform: translateX(20px);
+        opacity: 1}
+    34% {opacity: 0}
+    44% {opacity: 0}
+    66% {transform: translateX(40px);
+        opacity: 1}
+    67%{opacity: 0;}
+    77%{opacity: 0;}
+}
+
+@-ms-keyframes transforming {
+    0% {transform: translateX(0px)}
+    1% {opacity: 0}
+    11% {opacity: 0}
+
+    33% {transform: translateX(20px);
+        opacity: 1}
+    34% {opacity: 0}
+    44% {opacity: 0}
+    66% {transform: translateX(40px);
+        opacity: 1}
+    67%{opacity: 0;}
+    77%{opacity: 0;}
+}
+
+@keyframes transforming {
+    0% {transform: translateX(0px)}
+    1% {opacity: 0}
+    11% {opacity: 0}
+
+    33% {transform: translateX(20px);
+        opacity: 1}
+    34% {opacity: 0}
+    44% {opacity: 0}
+    66% {transform: translateX(40px);
+        opacity: 1}
+    67%{opacity: 0;}
+    77%{opacity: 0;}
+}
+
+.loadingBlock::after {
+    content: "";
+    position: absolute;
+    right: -25px;
+    bottom: 10px;
+    height: 15px;
+    width: 15px;
+    z-index: 2;
+    background: #000000;
+    box-sizing: border-box;
+    border-radius: 50%;
+
+    -moz-animation: transforming 1.5s infinite;
+    -webkit-animation: transforming 1.5s infinite;
+    -ms-animation: transforming 1.5s infinite;
+    animation: transforming 1.5s infinite;
+}
+
