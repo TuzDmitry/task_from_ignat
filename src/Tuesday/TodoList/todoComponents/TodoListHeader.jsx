@@ -21,7 +21,7 @@ class TodoListHeader extends React.Component {
             this.setState({error: true})
         } else {
             this.setState({error: false})
-            this.props.addTask(newText, getOurTime()); //вызвали ту ф-ю в родит. компоненте и подали в нее записаное в переменную newText значение инпута!
+            this.props.addTask(newText); //вызвали ту ф-ю в родит. компоненте и подали в нее записаное в переменную newText значение инпута!
         }
 
 

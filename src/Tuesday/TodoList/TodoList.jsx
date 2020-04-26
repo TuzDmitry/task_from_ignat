@@ -3,7 +3,7 @@ import './TodoList.css';
 import TodoListHeader from "./todoComponents/TodoListHeader";
 import TodoListTasks from "./todoComponents/TodoListTasks";
 import TodoListFooter from "./todoComponents/TodoListFooter";
-import {saveState, restoreState} from "./functions";
+import {saveState, restoreState, getOurTime} from "./functions";
 
 // import PropTypes from "prop-types";
 const UPADATE_PRIORITY_VALUE = 'UPADATE_PRIORITY_VALUE';
@@ -38,10 +38,10 @@ class TodoList extends React.Component {
         ], filterValue: "All"
     }
 
-    addTask = (newText, time) => {
+    addTask = (newText) => {
         let newTask = {
             id: this.nextTaskId, title: newText, isDone: false, priority: 'low',
-            created: time, updated: "none", finished: "none"
+            created: getOurTime(), updated: "none", finished: "none"
         };
 
         this.nextTaskId++;
@@ -92,20 +92,27 @@ class TodoList extends React.Component {
     pseudoDispatch = (action) => {
         switch (action.type) {
             case UPADATE_TITLE_TEXT:
-                this.changeTask(action.id, {title: action.newText, updated: action.updateTime})
+                this.changeTask(action.id, {title: action.newText, updated: getOurTime()})
                 break;
 
             case UPADATE_PRIORITY_VALUE: {
-                this.changeTask(action.id, {priority: action.newValue, updated: action.updateTime})
+                this.changeTask(action.id, {priority: action.newValue, updated: getOurTime()})
             }
                 break;
 
             case CHANGE_STATUS_IS_DONE:
-                this.changeTask(action.id, {
-                    isDone: action.isDone,
-                    updated: action.updateTime,
-                    finished: action.finishTime
-                })
+                if (action.isDone) {
+                    this.changeTask(action.id, {
+                        isDone: action.isDone,
+                        finished: getOurTime()
+                    })
+                } else {
+                    this.changeTask(action.id, {
+                        isDone: action.isDone,
+                        updated: getOurTime(),
+                        finished: 'none'
+                    })
+                }
                 break;
         }
     }
@@ -143,26 +150,21 @@ class TodoList extends React.Component {
 export default TodoList;
 
 
-export const upDateTitleActionCreator = (id, text, updateTime) => ({
+export const upDateTitleActionCreator = (id, text) => ({
     type: UPADATE_TITLE_TEXT,
     newText: text,
-    id: id,
-    updateTime: updateTime
+    id: id
 })
-export const upDatePriorityActionCreator = (id, value, updateTime) => ({
+export const upDatePriorityActionCreator = (id, value) => ({
     type: UPADATE_PRIORITY_VALUE,
     newValue: value,
-    id: id,
-    updateTime: updateTime
+    id: id
 })
-export const changeStatusIsDoneActionCreator = (id, currIsDone, updateTime, finishTime) => ({
+export const changeStatusIsDoneActionCreator = (id, currIsDone) => ({
     type: CHANGE_STATUS_IS_DONE,
     id: id,
-    isDone: currIsDone,
-    finishTime: finishTime,
-    updateTime: updateTime
+    isDone: currIsDone
 })
-
 
 // App.propTypes = {
 //     // _________: PropTypes.string

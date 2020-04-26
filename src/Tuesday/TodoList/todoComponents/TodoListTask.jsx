@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from 'prop-types';
 import {changeStatusIsDoneActionCreator, upDatePriorityActionCreator, upDateTitleActionCreator} from "../TodoList";
 import style from "./TodoListTask.module.css"
-import {getOurTime} from "../functions";
 
 class TodoListTask extends React.Component {
 
@@ -10,12 +9,11 @@ class TodoListTask extends React.Component {
         let currIsDone = e.currentTarget.checked;
         let id = this.props.task.id;
         let action;
-        let updateTime = this.props.task.updated
         if (currIsDone) {
-            action = changeStatusIsDoneActionCreator(id, currIsDone, updateTime, getOurTime())
+            action = changeStatusIsDoneActionCreator(id, currIsDone)
             this.props.pseudoDispatch(action)
         } else {
-            action = changeStatusIsDoneActionCreator(id, currIsDone, getOurTime(), "none")
+            action = changeStatusIsDoneActionCreator(id, currIsDone)
             this.props.pseudoDispatch(action)
         }
     }
@@ -23,13 +21,13 @@ class TodoListTask extends React.Component {
     onTitleChanged = (e) => {
         let text = e.currentTarget.value;
         let id = this.props.task.id;
-        let action = upDateTitleActionCreator(id, text, getOurTime());
+        let action = upDateTitleActionCreator(id, text);
         this.props.pseudoDispatch(action)
     }
     onPriorityChanged = (e) => {
         let value = e.currentTarget.value;
         let id = this.props.task.id;
-        let action = upDatePriorityActionCreator(id, value, getOurTime())
+        let action = upDatePriorityActionCreator(id, value)
         this.props.pseudoDispatch(action)
     }
 
