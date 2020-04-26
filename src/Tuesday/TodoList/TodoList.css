@@ -13,22 +13,16 @@ background-color: bisque;
   padding: 10px;
 }
 .taskContainer{
+  padding-top: 15px;
   display: flex;
   justify-content: space-between;
 }
 
-.todoList-task {
-  opacity: 1;
-}
 .filter-active {background: red;}
 .btn:hover {background: yellow;}
 .btn:active {background: green;}
 .error {
   border-color: red;
-}
-
-.done {
-  opacity: 0.5;
 }
 
 .btnHideShow {

@@ -7,7 +7,8 @@ import {saveState, restoreState} from "./functions";
 
 // import PropTypes from "prop-types";
 const UPADATE_PRIORITY_VALUE = 'UPADATE_PRIORITY_VALUE';
-const UPADATE_TITLE_TEXT='UPADATE_TITLE_TEXT';
+const UPADATE_TITLE_TEXT = 'UPADATE_TITLE_TEXT';
+const CHANGE_STATUS_IS_DONE = 'CHANGE_STATUS_IS_DONE';
 
 
 class TodoList extends React.Component {
@@ -33,42 +34,16 @@ class TodoList extends React.Component {
     state = {
         tasks: [
             // {id: 1, title: "JS", isDone: true, priority: 'low'},
-            // {id: 2, title: "HTML", isDone: true, priority: 'high'},
+            // {id: 2, title: "HTML", isDone: true, priority: 'high', created: "21.04.2020", updated: "21.04.2020",finished: "21.04.2020",},
         ], filterValue: "All"
     }
 
-    // saveState = () => {
-    //     ////устанавливаем в localStorage под ключом "our-state"  наш стейт переделанный в  джейсон строку JSON.stringify(this.state)
-    //     localStorage.setItem("our-state", JSON.stringify(this.state));
-    // }
+    addTask = (newText, time) => {
+        let newTask = {
+            id: this.nextTaskId, title: newText, isDone: false, priority: 'low',
+            created: time, updated: "none", finished: "none"
+        };
 
-
-    // restoreState = () => {
-    //     /////объявляем наш стартовый стейт
-    //     let state = {
-    //         tasks: [],
-    //         filterValue: "All"
-    //     }
-    //     //// считываем сохраненную ранее строку из localStorage
-    //     let stateAsString = localStorage.getItem("our-state")
-    //     ////если таковая есть, то превращаем строку в объект и призваиваем стейту знаение из стораджа.
-    //     if (stateAsString) {
-    //         state = JSON.parse(stateAsString);
-    //     }
-    //     ////устанавливаем стейт или пустой или востановленный в стейт
-    //     this.setState(state, () => {
-    //         ////одним махом в колбек сделаем сравнение счётчика для id
-    //         // this.nextTaskId = this.state.tasks.length   код который можено заменить на 4 строчки ниже
-    //         this.state.tasks.forEach(task => {
-    //             if (task.id >= this.nextTaskId) {
-    //                 this.nextTaskId = task.id + 1
-    //             }
-    //         })
-    //     })
-    // }
-
-    addTask = (newText) => {
-        let newTask = {id: this.nextTaskId, title: newText, isDone: false, priority: 'low'};
         this.nextTaskId++;
         let newTasks = [...this.state.tasks, newTask] ///...this.state.tasks-- раскукоживаем старый массив
         this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
@@ -96,7 +71,6 @@ class TodoList extends React.Component {
         this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
     }
 
-
     changeFilter = (newfilterValue) => {
         this.setState({filterValue: newfilterValue}, () => saveState(this.state));
     }
@@ -115,17 +89,24 @@ class TodoList extends React.Component {
         });
     }
 
-    changeStatus = (taskId, isDone) => {
-        this.changeTask(taskId, {isDone: isDone})
-    }
-
     pseudoDispatch = (action) => {
-        if (action.type === UPADATE_TITLE_TEXT) {
-            this.changeTask(action.id, {title: action.newText})
-        } else if (action.type === UPADATE_PRIORITY_VALUE) {
-            {
-                this.changeTask(action.id, {priority: action.newValue})
+        switch (action.type) {
+            case UPADATE_TITLE_TEXT:
+                this.changeTask(action.id, {title: action.newText, updated: action.updateTime})
+                break;
+
+            case UPADATE_PRIORITY_VALUE: {
+                this.changeTask(action.id, {priority: action.newValue, updated: action.updateTime})
             }
+                break;
+
+            case CHANGE_STATUS_IS_DONE:
+                this.changeTask(action.id, {
+                    isDone: action.isDone,
+                    updated: action.updateTime,
+                    finished: action.finishTime
+                })
+                break;
         }
     }
 
@@ -138,7 +119,6 @@ class TodoList extends React.Component {
                     <TodoListHeader addTask={this.addTask}/>
                     <TodoListTasks
                         pseudoDispatch={this.pseudoDispatch}
-                        changeStatus={this.changeStatus}
                         deleteTask={this.deleteTask}
                         tasks={this.state.tasks.filter(t => {
                                 switch (this.state.filterValue) {
@@ -163,8 +143,25 @@ class TodoList extends React.Component {
 export default TodoList;
 
 
-export const upDateTitleActionCreator = (text, id) => ({type: UPADATE_TITLE_TEXT, newText: text, id: id})
-export const upDatePriorityActionCreator = (value, id) => ({type: UPADATE_PRIORITY_VALUE, newValue: value, id: id})
+export const upDateTitleActionCreator = (id, text, updateTime) => ({
+    type: UPADATE_TITLE_TEXT,
+    newText: text,
+    id: id,
+    updateTime: updateTime
+})
+export const upDatePriorityActionCreator = (id, value, updateTime) => ({
+    type: UPADATE_PRIORITY_VALUE,
+    newValue: value,
+    id: id,
+    updateTime: updateTime
+})
+export const changeStatusIsDoneActionCreator = (id, currIsDone, updateTime, finishTime) => ({
+    type: CHANGE_STATUS_IS_DONE,
+    id: id,
+    isDone: currIsDone,
+    finishTime: finishTime,
+    updateTime: updateTime
+})
 
 
 // App.propTypes = {

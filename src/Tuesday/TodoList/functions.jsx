@@ -1,4 +1,3 @@
-
 export const saveState = (state) => {
     localStorage.setItem("our-state", JSON.stringify(state));
 }
@@ -17,3 +16,8 @@ export const restoreState = () => {
 
 }
 
+export const getOurTime = () => {
+    const day = new Date().toDateString();
+    const timeOperation = new Date().toTimeString().replace(/ .*/, '');
+    return (day + "  " + timeOperation)
+}

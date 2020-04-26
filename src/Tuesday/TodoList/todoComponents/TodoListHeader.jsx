@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {getOurTime} from "../functions";
 
 class TodoListHeader extends React.Component {
     constructor(props) {
@@ -13,9 +14,6 @@ class TodoListHeader extends React.Component {
         title: ""
     }
     onAddTaskClick = () => {
-        // let newText = this.newTaskTitleRef.current.value; //обратились к ссылке на эл-т и взяли у нее текущее значение///
-        //
-        // this.newTaskTitleRef.current.value = "";/////обнуляет наш импут(10)
         let newText = this.state.title;
         this.setState({title: ""})
 
@@ -23,13 +21,14 @@ class TodoListHeader extends React.Component {
             this.setState({error: true})
         } else {
             this.setState({error: false})
-            this.props.addTask(newText); //вызвали ту ф-ю в родит. компоненте и подали в нее записаное в переменную newText значение инпута!
+            this.props.addTask(newText, getOurTime()); //вызвали ту ф-ю в родит. компоненте и подали в нее записаное в переменную newText значение инпута!
         }
 
 
     }
 
     onTitleChanged = (e) => {
+        debugger
         this.setState({
             error: false,
             title: e.currentTarget.value

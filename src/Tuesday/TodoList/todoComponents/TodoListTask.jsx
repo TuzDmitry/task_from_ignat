@@ -1,24 +1,35 @@
 import React from "react"
 import PropTypes from 'prop-types';
-import {upDatePriorityActionCreator, upDateTitleActionCreator} from "../TodoList";
-
+import {changeStatusIsDoneActionCreator, upDatePriorityActionCreator, upDateTitleActionCreator} from "../TodoList";
+import style from "./TodoListTask.module.css"
+import {getOurTime} from "../functions";
 
 class TodoListTask extends React.Component {
 
     onIsDoneChanged = (e) => {
-        this.props.changeStatus(this.props.task.id, e.currentTarget.checked)
+        let currIsDone = e.currentTarget.checked;
+        let id = this.props.task.id;
+        let action;
+        let updateTime = this.props.task.updated
+        if (currIsDone) {
+            action = changeStatusIsDoneActionCreator(id, currIsDone, updateTime, getOurTime())
+            this.props.pseudoDispatch(action)
+        } else {
+            action = changeStatusIsDoneActionCreator(id, currIsDone, getOurTime(), "none")
+            this.props.pseudoDispatch(action)
+        }
     }
 
     onTitleChanged = (e) => {
         let text = e.currentTarget.value;
         let id = this.props.task.id;
-        let action = upDateTitleActionCreator(text, id);
+        let action = upDateTitleActionCreator(id, text, getOurTime());
         this.props.pseudoDispatch(action)
     }
     onPriorityChanged = (e) => {
         let value = e.currentTarget.value;
         let id = this.props.task.id;
-        let action = upDatePriorityActionCreator(value, id)
+        let action = upDatePriorityActionCreator(id, value, getOurTime())
         this.props.pseudoDispatch(action)
     }
 
@@ -28,7 +39,8 @@ class TodoListTask extends React.Component {
 
     state = {
         editContentMode: false,
-        editPriorityMode: false
+        editPriorityMode: false,
+        displayCloudInfo: false
     }
     activateEditMode = () => {
         this.setState({
@@ -42,10 +54,20 @@ class TodoListTask extends React.Component {
     }
 
     render = () => {
-        let classForIsDone = this.props.task.isDone ? "done" : "todoList-task";
+        let classForIsDone = this.props.task.isDone ? `${style.done}` : `${style.todoListTask}`;
+        let classForCloud = this.state.displayCloudInfo ? `${style.showCloudInfo}` : `${style.hide}`;
         return (
             <div className='taskContainer'>
-                <div className={classForIsDone}>
+                <div className={classForIsDone}
+                     onMouseOut={() => this.setState({displayCloudInfo: false})}
+                     onMouseOver={() => this.setState({displayCloudInfo: true})}
+                >
+
+                    <div className={classForCloud}>
+                        <div><b>created:</b> {this.props.task.created}</div>
+                        <div><b>updated:</b> {this.props.task.updated}</div>
+                        <div><b>finished:</b> {this.props.task.finished}</div>
+                    </div>
                     <input type="checkbox" onChange={this.onIsDoneChanged} checked={this.props.task.isDone}/>
 
                     <span>{this.props.task.id}</span>

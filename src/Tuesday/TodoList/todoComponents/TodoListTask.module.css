@@ -1,0 +1,38 @@
+
+.todoListTask {
+    opacity: 1;
+    position: relative;
+}
+
+.done {
+    opacity: 0.5;
+    position: relative;
+}
+
+.showCloudInfo {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    top: -30px;
+    right: -235px;
+    background: #ffed00;
+    border-radius: 10px 10px 10px 0px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 12px;
+}
+
+.showCloudInfo::before {
+    content: " ";
+    position: absolute;
+    bottom: 0px;
+    left: -30px;
+    border-right: 30px solid #ffed00;
+    border-top: 20px solid transparent;
+}
+
+.hide {
+    display: none;
+}
