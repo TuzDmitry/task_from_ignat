@@ -6,12 +6,21 @@ import Monday from "./Monday/Monday";
 import Tuesday from "./Tuesday/Tuesday";
 import {Route} from "react-router-dom";
 import Loading from "./Loading/Loading";
+import {connect} from "react-redux";
+import {setLoadingAC} from "./loadingReducer";
 
 
 class App extends React.Component {
+    //////было//////////
+    // componentDidMount() {
+    //     setTimeout(() => {
+    //         this.setState({loading: false})
+    //     }, 3000)
+    // }
+    /////стало//////////
     componentDidMount() {
         setTimeout(() => {
-            this.setState({loading: false})
+            this.props.setLoadingFalse()
         }, 3000)
     }
 
@@ -25,7 +34,7 @@ class App extends React.Component {
     ChooseActiveSkill = 0;
 
     state = {
-        loading: true,
+        // loading: true,
         listOfNames: [
             // {name: "Alla"},
             // {name: "Sasha"}
@@ -48,12 +57,14 @@ class App extends React.Component {
     render = () => {
         return (
             <div className="App">
-                {this.state.loading &&
+                {/*{this.state.loading &&*/}
+                {this.props.loading &&
                 <>
                     <div></div>
-                    <Loading />
-                    </>}
-                {!this.state.loading &&
+                    <Loading/>
+                </>}
+                {/*{!this.state.loading &&*/}
+                {!this.props.loading &&
                 <>
                     <div>
                         <NavBar/>
@@ -72,4 +83,23 @@ class App extends React.Component {
     }
 }
 
-export default App;
+////////////////////////////////////////////////////////////////
+let mapStateToProps = (state) => {
+    return {
+        loading: state.loadingPage.loading
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        setLoadingFalse: () => {
+            let action = setLoadingAC()
+            dispatch(action)
+        }
+
+    }
+}
+
+
+let AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)
+export default AppContainer;

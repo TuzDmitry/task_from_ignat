@@ -7,7 +7,6 @@ import InnerInput from "./Components3Parts/InnerInput";
 import InnerListOfNames from "./Components3Parts/InnerListOfNames";
 
 class Component3 extends React.Component {
-    // inputNameRef = React.createRef();
 
     state = {
         error: true,
