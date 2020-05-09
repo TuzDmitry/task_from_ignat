@@ -114,6 +114,8 @@ class TodoList extends React.Component {
                     })
                 }
                 break;
+            default:
+                break;
         }
     }
 

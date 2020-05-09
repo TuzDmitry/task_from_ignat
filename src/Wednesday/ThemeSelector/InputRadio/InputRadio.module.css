@@ -1,0 +1,10 @@
+.textLabel{
+    position: relative;
+     cursor: pointer;
+ }
+
+
+/*.textLabel::after{*/
+/*    position: absolute;*/
+/*    content: '';*/
+/*}*/

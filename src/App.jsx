@@ -7,7 +7,8 @@ import Tuesday from "./Tuesday/Tuesday";
 import {Route} from "react-router-dom";
 import Loading from "./Loading/Loading";
 import {connect} from "react-redux";
-import {setLoadingAC} from "./loadingReducer";
+import {setLoadingAC} from "./redux/loadingReducer";
+import Wednesday from "./Wednesday/Wednesday";
 
 
 class App extends React.Component {
@@ -75,6 +76,8 @@ class App extends React.Component {
                                                                     state={this.state}
                                                                     getNameForAlert={this.getNameForAlert}/>}/>
                         <Route path='/tuesday' render={() => <Tuesday/>}/>
+                        <Route path='/wednesday' render={() => <Wednesday/>}/>
+
 
                     </div>
                 </>}

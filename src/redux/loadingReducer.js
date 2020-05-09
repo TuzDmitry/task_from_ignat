@@ -7,7 +7,6 @@ let initialState = {
 let loadingReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_LOADING:
-            debugger
             return {...state, loading: action.loading}
         default:
             return state;

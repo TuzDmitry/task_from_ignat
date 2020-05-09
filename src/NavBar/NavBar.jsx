@@ -36,6 +36,9 @@ class NavBar extends React.Component {
                     <div className={style.barItem}>
                         <NavLink activeClassName={style.activeLink} to="/tuesday">Tuesday</NavLink>
                     </div>
+                    <div className={style.barItem}>
+                        <NavLink activeClassName={style.activeLink} to="/wednesday">Wednesday</NavLink>
+                    </div>
                 </div>
 
 

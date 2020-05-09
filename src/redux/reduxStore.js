@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 // import mondayReducer from "./mondayReducer";
 // import tuesdayReducer from "./tuesdayReducer";
 import loadingReducer from "./loadingReducer";
+import SettingsReducer from "./SettingsReducer";
 
 
 // let initialState = {
@@ -31,6 +32,7 @@ import loadingReducer from "./loadingReducer";
 let reducers = combineReducers(
     {
         loadingPage: loadingReducer,
+        settings: SettingsReducer,
         // mondayPage: mondayReducer,
         // tuesdayPage: tuesdayReducer
     }
