@@ -1,8 +1,9 @@
 import React from 'react';
 import ThemeSelector from "./ThemeSelector/ThemeSelector";
-import style from './Wednesday.module.css'
+// import style from './Wednesday.module.css'
 import {connect} from "react-redux";
 import {setStyleTheme} from "../redux/SettingsReducer";
+import QuerySenderContainer from "./QuerySendComponent/QuerySenderContainer";
 
 // import style from '../Component3.module.css'
 
@@ -14,8 +15,10 @@ class Wednesday extends React.Component {
         };
 
         return (
-            <div className={`${style.backColor}`} style={divStyle}>
+            // <div className={`${style.backColor}`} style={divStyle}>
+            <div className={`${this.props.state.selectedStyle.backColor}`} style={divStyle}>
               <ThemeSelector state={this.props.state} setTheme={this.props.setTheme}/>
+              <QuerySenderContainer />
             </div>
         );
     }
@@ -31,7 +34,6 @@ const mapDispatchToProps=(dispatch)=>{
         setTheme:(color)=>{
             dispatch(setStyleTheme(color))
         }
-
 
     }
 }
