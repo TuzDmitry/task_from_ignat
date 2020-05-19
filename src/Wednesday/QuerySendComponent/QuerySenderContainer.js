@@ -32,7 +32,7 @@ class QuerySenderAPI extends React.Component {
             return response.data.yourBody;
         } catch (e) {
             console.log('error: ', {...e});
-            console.log('error: ', {...e.response.data.yourBody.success});
+            console.log('error: ', {...e.response.data.yourBody});
 
             return {success: false};
         }

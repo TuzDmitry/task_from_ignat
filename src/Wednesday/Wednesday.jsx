@@ -11,13 +11,13 @@ class Wednesday extends React.Component {
 
     render = () => {
         let divStyle = {
-            backgroundColor: this.props.state.choisedTheme
+            backgroundColor: this.props.themeStyle.choisedTheme
         };
 
         return (
             // <div className={`${style.backColor}`} style={divStyle}>
-            <div className={`${this.props.state.selectedStyle.backColor}`} style={divStyle}>
-              <ThemeSelector state={this.props.state} setTheme={this.props.setTheme}/>
+            <div className={`${this.props.themeStyle.selectedStyle.backColor}`} style={divStyle}>
+              <ThemeSelector state={this.props.themeStyle} setTheme={this.props.setTheme}/>
               <QuerySenderContainer />
             </div>
         );
@@ -26,7 +26,7 @@ class Wednesday extends React.Component {
 
 const mapStateToProps=(state)=>{
     return{
-state:state.settings.theme_style
+        themeStyle:state.settings.theme_style
     }
 }
 const mapDispatchToProps=(dispatch)=>{

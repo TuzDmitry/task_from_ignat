@@ -8,7 +8,7 @@ let initialState = {
 let wednesdayReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_SUCCESS:
-            debugger
+
             return {...state, success: action.success}
         default:
             return state
