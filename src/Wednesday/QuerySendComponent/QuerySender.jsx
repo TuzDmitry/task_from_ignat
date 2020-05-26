@@ -1,4 +1,6 @@
 import React from "react";
+import * as axios from "axios";
+import {API} from "../../dal/api";
 
 const QuerySender=(props)=>{
 
@@ -6,9 +8,20 @@ const QuerySender=(props)=>{
         props.changeSuccess(e.currentTarget.checked)
 
     }
+
+    const f=()=>{
+        return axios.post('https://neko-cafe-back.herokuapp.com/auth/test',
+            {success: props.success}
+        )
+    }
+    //
+    // const f=()=>{
+    //     return API.f(props.success)
+    // }
+
+
     const onSendButtonClick=()=>{
-        // props.funct()
-        props.tryCatch()
+        props.tryCatch(f)
     }
 
 

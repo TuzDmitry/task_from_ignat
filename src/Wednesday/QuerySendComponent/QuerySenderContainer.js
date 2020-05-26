@@ -22,12 +22,10 @@ class QuerySenderAPI extends React.Component {
     //         .catch(err => alert(err));
     // }
 
-    tryCatch = async () => {
+    tryCatch = async (f) => {
 
         try {
-            const response = await axios.post('https://neko-cafe-back.herokuapp.com/auth/test',
-                {success: this.props.success}
-            );
+            const response = await f();
             console.log('answer: ', response.data.yourBody.success);
             return response.data.yourBody;
         } catch (e) {
