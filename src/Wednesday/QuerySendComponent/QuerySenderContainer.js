@@ -2,7 +2,7 @@ import React from "react";
 import QuerySender from "./QuerySender";
 import {connect} from "react-redux";
 import * as axios from "axios";
-import {changeInProgress, changeSuccess} from "../../redux/wednesdayReducer";
+import {changeInProgress, changeNotification, changeSuccess} from "../../redux/wednesdayReducer";
 
 class QuerySenderAPI extends React.Component {
     componentDidMount() {
@@ -40,10 +40,13 @@ class QuerySenderAPI extends React.Component {
     render() {
         return (
             <QuerySender success={this.props.success}
-                         inProgress={this.props.inProgress}
-
                          changeSuccess={this.props.changeSuccess}
+
+                         inProgress={this.props.inProgress}
                          changeInProgress={this.props.changeInProgress}
+
+                         notification={this.props.notification}
+                         changeNotification={this.props.changeNotification}
                 // tryCatch={this.tryCatch}
                          funct={this.getQuery}/>
 
@@ -55,7 +58,8 @@ class QuerySenderAPI extends React.Component {
 const mapStateToProps = (state) => {
     return {
         success: state.wednesdayPage.success,
-        inProgress: state.wednesdayPage.inProgress
+        inProgress: state.wednesdayPage.inProgress,
+        notification: state.wednesdayPage.notification
     }
 };
 
@@ -66,6 +70,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         changeInProgress: (inProgress)=>{
             dispatch(changeInProgress(inProgress))
+        },
+        changeNotification:(newText)=>{
+            dispatch(changeNotification(newText))
         }
     }
 };
