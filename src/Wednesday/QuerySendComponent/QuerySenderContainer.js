@@ -2,7 +2,7 @@ import React from "react";
 import QuerySender from "./QuerySender";
 import {connect} from "react-redux";
 import * as axios from "axios";
-import {changeSuccess} from "../../redux/wednesdayReducer";
+import {changeInProgress, changeSuccess} from "../../redux/wednesdayReducer";
 
 class QuerySenderAPI extends React.Component {
     componentDidMount() {
@@ -22,26 +22,29 @@ class QuerySenderAPI extends React.Component {
     //         .catch(err => alert(err));
     // }
 
-    tryCatch = async (f) => {
-
-        try {
-            const response = await f();
-            console.log('answer: ', response.data.yourBody.success);
-            return response.data.yourBody;
-        } catch (e) {
-            console.log('error: ', {...e});
-            console.log('error: ', {...e.response.data.yourBody});
-
-            return {success: false};
-        }
-    }
+    // tryCatch = async (f) => {
+    //
+    //     try {
+    //         const response = await f();
+    //         console.log('answer: ', response.data.yourBody.success);
+    //         return response.data.yourBody;
+    //     } catch (e) {
+    //         console.log('error: ', {...e});
+    //         console.log('error: ', {...e.response.data.yourBody});
+    //
+    //         return {success: false};
+    //     }
+    // }
 
 
     render() {
         return (
             <QuerySender success={this.props.success}
+                         inProgress={this.props.inProgress}
+
                          changeSuccess={this.props.changeSuccess}
-                         tryCatch={this.tryCatch}
+                         changeInProgress={this.props.changeInProgress}
+                // tryCatch={this.tryCatch}
                          funct={this.getQuery}/>
 
         )
@@ -51,7 +54,8 @@ class QuerySenderAPI extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        success: state.wednesdayPage.success
+        success: state.wednesdayPage.success,
+        inProgress: state.wednesdayPage.inProgress
     }
 };
 
@@ -59,6 +63,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         changeSuccess: (isSuccess) => {
             dispatch(changeSuccess(isSuccess))
+        },
+        changeInProgress: (inProgress)=>{
+            dispatch(changeInProgress(inProgress))
         }
     }
 };
