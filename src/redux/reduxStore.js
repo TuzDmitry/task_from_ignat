@@ -1,9 +1,11 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 // import mondayReducer from "./mondayReducer";
 // import tuesdayReducer from "./tuesdayReducer";
 import loadingReducer from "./loadingReducer";
 import SettingsReducer from "./SettingsReducer";
 import wednesdayReducer from "./wednesdayReducer";
+import thunkMiddleware from "redux-thunk";
+
 
 
 // let initialState = {
@@ -40,6 +42,6 @@ let reducers = combineReducers(
     }
 )
 
-let store = createStore(reducers)
+let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 export default store;
