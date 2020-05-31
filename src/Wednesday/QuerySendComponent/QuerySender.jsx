@@ -1,6 +1,5 @@
 import React from "react";
-import * as axios from "axios";
-import {API, tryCatch} from "../../dal/api";
+
 import Progress from "../../Progress/Progress";
 
 const QuerySender = (props) => {
@@ -10,36 +9,28 @@ const QuerySender = (props) => {
 
     }
 
-    // const f=()=>{
-    //     return axios.post('https://neko-cafe-back.herokuapp.com/auth/test',
-    //         {success: props.success}
-    //     )
+    // const f = () => {
+    //     return API.getSuccess(props.success)
+    // }
+    // const onSendButtonClick = () => {
+    //     props.changeInProgress(true)
+    //
+    //     tryCatch(f).then((result) => {
+    //         props.changeInProgress(false)
+    //         if (result.success) {
+    //             props.changeNotification('Запрос прошел успешно')
+    //         } else {
+    //             props.changeNotification('Запрос прошел неуспешно')
+    //
+    //         }
+    //
+    //         setTimeout(() => {
+    //             props.changeNotification('')
+    //         }, 4000)
+    //     })
     // }
 
-    const f = () => {
-        return API.getSuccess(props.success)
-    }
-
-
-    const onSendButtonClick = () => {
-        props.changeInProgress(true)
-
-        tryCatch(f).then((result) => {
-            props.changeInProgress(false)
-            if (result.success) {
-                props.changeNotification('Запрос прошел успешно')
-                // alert('Запрос прошел успешно')
-            } else {
-                props.changeNotification('Запрос прошел неуспешно')
-                // alert('Запрос прошел неуспешно')
-            }
-            // alert(result.success)
-
-            setTimeout(() => {
-                props.changeNotification('')
-            }, 4000)
-        })
-    }
+    const onSendButtonClick = () => {props.queryFrom11Less()}
 
 
     const divstyle = {

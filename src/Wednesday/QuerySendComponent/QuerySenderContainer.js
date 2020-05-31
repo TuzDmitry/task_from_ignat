@@ -2,12 +2,16 @@ import React from "react";
 import QuerySender from "./QuerySender";
 import {connect} from "react-redux";
 import * as axios from "axios";
-import {changeInProgress, changeNotification, changeSuccess} from "../../redux/wednesdayReducer";
+import {
+    changeInProgress,
+    changeNotification,
+    changeSuccess,
+    queryFrom11LessTC,
+} from "../../redux/wednesdayReducer";
 
 class QuerySenderAPI extends React.Component {
     componentDidMount() {
         ///делать запрос
-
     }
 
     // getQuery() {
@@ -47,8 +51,9 @@ class QuerySenderAPI extends React.Component {
 
                          notification={this.props.notification}
                          changeNotification={this.props.changeNotification}
-                // tryCatch={this.tryCatch}
-                         funct={this.getQuery}/>
+
+                         queryFrom11Less={this.props.queryFrom11Less}
+                         />
 
         )
     }
@@ -68,14 +73,18 @@ const mapDispatchToProps = (dispatch) => {
         changeSuccess: (isSuccess) => {
             dispatch(changeSuccess(isSuccess))
         },
-        changeInProgress: (inProgress)=>{
-            dispatch(changeInProgress(inProgress))
-        },
-        changeNotification:(newText)=>{
-            dispatch(changeNotification(newText))
+        // changeInProgress: (inProgress)=>{
+        //     dispatch(changeInProgress(inProgress))
+        // },
+        // changeNotification:(newText)=>{
+        //     dispatch(changeNotification(newText))
+        // }
+        queryFrom11Less:()=>{
+            let thunk=queryFrom11LessTC()
+            dispatch(thunk)
         }
     }
 };
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(QuerySenderAPI)
+

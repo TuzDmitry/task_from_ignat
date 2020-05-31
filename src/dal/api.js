@@ -7,6 +7,7 @@ export  const tryCatch = async (f) => {
         //Ключевое слово await заставит интерпретатор JavaScript ждать до тех пор, пока промис справа от await не выполнится
         const response = await f();
         console.log('answer: ', response.data.yourBody.success);
+        debugger
         return response.data.yourBody;
         // return response.data.yourBody.success;
     } catch (e) {

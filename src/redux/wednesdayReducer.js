@@ -1,3 +1,6 @@
+import {API, tryCatch} from "../dal/api";
+import store from "./reduxStore";
+
 export const CHANGE_SUCCESS = "task_ignat_git/wendesdayReducer/CHANGE_SUCCESS"
 export const IN_PROGRESS = "task_ignat_git/wendesdayReducer/IN_PROGRESS"
 export const CHANGE_NOTIFICATION = "task_ignat_git/wendesdayReducer/CHANGE_NOTIFICATION"
@@ -45,5 +48,32 @@ export const changeInProgress = (inProgress) => {
     return (
         {type: IN_PROGRESS, inProgress}
     )
+}
+
+export const queryFrom11LessTC=()=>{
+    return (dispatch, getState)=>{
+        dispatch(changeInProgress(true))
+
+        const success = getState().wednesdayPage.success
+        debugger
+
+
+///взять стейт из 10й строки
+        tryCatch(() =>API.getSuccess(success)).then((result) => {
+            // debugger
+            dispatch(changeInProgress(false))
+            if (result.success) {
+                dispatch(changeNotification('Запрос прошел успешно'))
+
+            } else {
+               dispatch(changeNotification('Запрос прошел неуспешно'))
+
+            }
+
+            setTimeout(() => {
+                dispatch(changeNotification(''))
+            }, 4000)
+        })
+    }
 }
 
