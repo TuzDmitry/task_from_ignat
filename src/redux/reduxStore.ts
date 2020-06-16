@@ -32,7 +32,7 @@ import thunkMiddleware from "redux-thunk";
 //     }
 // }
 
-let reducers = combineReducers(
+let rootReducer = combineReducers(
     {
         loadingPage: loadingReducer,
         settings: SettingsReducer,
@@ -41,7 +41,10 @@ let reducers = combineReducers(
         wednesdayPage: wednesdayReducer
     }
 )
+type RootReducerType= typeof rootReducer;
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware))
+export type AppStateType=ReturnType<RootReducerType>
+
+let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 export default store;

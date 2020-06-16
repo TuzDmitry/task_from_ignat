@@ -5,6 +5,7 @@ const Progress = (props) => {
     return (
         <div>
             <img src={preloader} alt=""/>
+
         </div>
     )
 }

@@ -1,18 +1,25 @@
 import {API, tryCatch} from "../dal/api";
-import store from "./reduxStore";
+import {Dispatch} from "redux";
+import {AppStateType} from "./reduxStore";
+
 
 export const CHANGE_SUCCESS = "task_ignat_git/wendesdayReducer/CHANGE_SUCCESS"
 export const IN_PROGRESS = "task_ignat_git/wendesdayReducer/IN_PROGRESS"
 export const CHANGE_NOTIFICATION = "task_ignat_git/wendesdayReducer/CHANGE_NOTIFICATION"
 
+type InitialStateType={
+    success: boolean
+    inProgress: boolean
+    notification: string
+}
 
-let initialState = {
+let initialState:InitialStateType = {
     success: true,
     inProgress: false,
     notification: ""
 }
 
-let wednesdayReducer = (state = initialState, action) => {
+let wednesdayReducer = (state = initialState, action:ActionTypes):InitialStateType => {
     switch (action.type) {
         case CHANGE_SUCCESS:
             return {...state, success: action.success}
@@ -32,26 +39,45 @@ let wednesdayReducer = (state = initialState, action) => {
 
 export default wednesdayReducer;
 
-export const changeSuccess = (success) => {
+export type ActionTypes =ChangeSuccessACType|ChangeNotificationACType|ChangeInProgressACType
+
+type ChangeSuccessACType={
+    type: typeof CHANGE_SUCCESS
+    success:boolean
+}
+type ChangeNotificationACType={
+    type: typeof CHANGE_NOTIFICATION
+    newText:string
+}
+type ChangeInProgressACType={
+    type: typeof IN_PROGRESS
+    inProgress:boolean
+}
+
+
+
+///Action Creators
+export const changeSuccess = (success:boolean):ChangeSuccessACType => {
     return (
         {type: CHANGE_SUCCESS, success}
     )
 }
 
-export const changeNotification = (newText) => {
+export const changeNotification = (newText:string):ChangeNotificationACType => {
     return (
         {type: CHANGE_NOTIFICATION, newText}
     )
 }
 
-export const changeInProgress = (inProgress) => {
+export const changeInProgress = (inProgress:boolean):ChangeInProgressACType => {
     return (
         {type: IN_PROGRESS, inProgress}
     )
 }
 
-export const queryFrom11LessTC=()=>{
-    return (dispatch, getState)=>{
+///Thunk Creators
+export const queryFrom11Less=()=>{
+    return (dispatch:Dispatch<ActionTypes>, getState:()=>AppStateType)=>{
         dispatch(changeInProgress(true))
 
         const success = getState().wednesdayPage.success
@@ -59,7 +85,8 @@ export const queryFrom11LessTC=()=>{
 
 
 ///взять стейт из 10й строки
-        tryCatch(() =>API.getSuccess(success)).then((result) => {
+        tryCatch(() =>API.getSuccess(success))
+            .then((result) => {
             // debugger
             dispatch(changeInProgress(false))
             if (result.success) {
