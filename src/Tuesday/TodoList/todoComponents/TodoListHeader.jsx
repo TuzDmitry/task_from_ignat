@@ -1,12 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {getOurTime} from "../functions";
 
 class TodoListHeader extends React.Component {
     constructor(props) {
         super(props);
-        // this.newTaskTitleRef = React.createRef(); //////////уже нам не нужен
-        /////создали ссылку на элемент <input ref={this.newTaskTitleRef}>//
+
     }
 
     state = {
@@ -21,7 +19,7 @@ class TodoListHeader extends React.Component {
             this.setState({error: true})
         } else {
             this.setState({error: false})
-            this.props.addTask(newText); //вызвали ту ф-ю в родит. компоненте и подали в нее записаное в переменную newText значение инпута!
+            this.props.addTask(newText);
         }
 
 
@@ -49,17 +47,13 @@ class TodoListHeader extends React.Component {
                 <div className="todoList-header">
                     <h3 className="todoList-header__title">What to Learn</h3>
                     <div className="todoList-newTaskForm">
-                        {/* input!! мы привязываем эту ссылку ref={this.newTaskTitleRef} на тебя!!!*/}
                         <input
-                            // ref={this.newTaskTitleRef}     ///уже нам не нужна
                             type="text"
                             className={classNameInput}
                             onChange={this.onTitleChanged}
                             value={this.state.title}
                             onKeyPress={this.onKeyPress}
                             placeholder="New task name"/>
-
-                        {/*по клику на кнопку произойдет вызов ф-ии onAddTaskClick*/}
                         <button onClick={this.onAddTaskClick}>Add</button>
                     </div>
                 </div>
