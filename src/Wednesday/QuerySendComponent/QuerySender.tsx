@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from "react";
 
 import Progress from "../../Progress/Progress";
+import {ButtonNya} from "../../Thursday/ButtonComponent";
 
 type OwnPropsType = {
     changeSuccess: (isSuccess: boolean) => void
@@ -25,6 +26,7 @@ const QuerySender = (props:OwnPropsType) => {
 
 
     const divstyle = {
+        padding:10,
         backgroundColor: 'orange',
         borderRadius: 20,
         border: 2,
@@ -35,6 +37,7 @@ const QuerySender = (props:OwnPropsType) => {
         <div style={divstyle}>
             <input type="checkbox" onChange={onCheckBoxClick} checked={props.success}/>
             <button disabled={props.inProgress} onClick={onSendButtonClick}>SEND</button>
+            <ButtonNya disabled={props.inProgress} onClick={onSendButtonClick}/>
             <div style={{color: 'green', fontWeight: 'bold'}}>
                 {props.notification}
             </div>

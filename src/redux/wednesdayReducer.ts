@@ -80,8 +80,7 @@ export const queryFrom11Less=()=>{
     return (dispatch:Dispatch<ActionTypes>, getState:()=>AppStateType)=>{
         dispatch(changeInProgress(true))
 
-        const success = getState().wednesdayPage.success
-        debugger
+        const success = getState().wednesdayPage.success;
 
 
 ///взять стейт из 10й строки
