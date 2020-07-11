@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {ButtonNya} from "../../../Thursday/ButtonComponent";
 
 class TodoListHeader extends React.Component {
     constructor(props) {
@@ -55,6 +56,7 @@ class TodoListHeader extends React.Component {
                             onKeyPress={this.onKeyPress}
                             placeholder="New task name"/>
                         <button onClick={this.onAddTaskClick}>Add</button>
+                        <ButtonNya onClick={this.onAddTaskClick}>Add</ButtonNya>
                     </div>
                 </div>
             </div>

@@ -5,13 +5,13 @@ import s from '../Thursday/InputComponent.module.css'
 export type ButtonNyaPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
 export function ButtonNya(props: ButtonNyaPropsType) {
-debugger
+    // debugger
     return (
 
         <button {...props}
                 className={s.buttonNya}
-            >
-            Click me
+        >
+            {props.children}
         </button>
     )
 }

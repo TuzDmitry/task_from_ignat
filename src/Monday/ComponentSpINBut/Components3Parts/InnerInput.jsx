@@ -9,13 +9,11 @@ class InnerInput extends React.Component {
 
 
     render = () => {
-        let classNameInput = !this.props.state.error ? `${style.error} ${style.inp}` : `${style.inp}`;
-        // let classNameInput = !this.props.state.title ? `${style.error} ${style.inp}` : `${style.inp}`;
+        let classNameInput = this.props.state.error ? `${style.error} ${style.inp}` : `${style.inp}`;
 
         return (
             <div className="">
                 <input className={classNameInput}
-                       // ref={this.props.inputNameRef}
                        onChange={this.props.onChangeInput}
                        value={this.props.state.title}
                        onKeyPress={this.onEnterPress}

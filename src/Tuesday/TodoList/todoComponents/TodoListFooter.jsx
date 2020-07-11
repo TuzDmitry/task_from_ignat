@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {ButtonNya} from "../../../Thursday/ButtonComponent";
 
 class TodoListFooter extends React.Component {
     state={
@@ -23,6 +24,12 @@ class TodoListFooter extends React.Component {
                 <div className="todoList-footer">
                     {!this.state.isHidden && <div className="btnHideShow" onClick={this.onHideFiltersClick}>hide</div>}
                     {this.state.isHidden && <div className="btnHideShow" onClick={this.onShowFiltersClick}>show</div>}
+
+
+                    {!this.state.isHidden && <ButtonNya className="btnHideShow" onClick={this.onHideFiltersClick}>hide</ButtonNya>}
+                    {this.state.isHidden && <ButtonNya className="btnHideShow" onClick={this.onShowFiltersClick}>show</ButtonNya>}
+
+
                     {!this.state.isHidden && <div>
                         <button onClick={this.onAllFilterClick} className={classForAll}>All</button>
                         <button onClick={this.onCompletedFilterClick} className={classForCompleted}>Completed</button>

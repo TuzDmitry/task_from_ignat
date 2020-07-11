@@ -2,14 +2,15 @@ import React from 'react';
 
 import style from './Component3.module.css'
 import InnerSpan from "./Components3Parts/InnerSpan";
-import InnerButton from "./Components3Parts/InnerButton";
 import InnerInput from "./Components3Parts/InnerInput";
 import InnerListOfNames from "./Components3Parts/InnerListOfNames";
+import {ButtonNya} from "../../Thursday/ButtonComponent";
+import {InputNya} from "../../Thursday/InputComponent";
 
 class Component3 extends React.Component {
 
     state = {
-        error: true,
+        error: null,
         title: ""
     }
 
@@ -17,26 +18,24 @@ class Component3 extends React.Component {
         let n = e.currentTarget.value;
         this.setState({
             title: n,
-            error: true
+            error: ""
         })
         console.log(this.state)
     }
 
 
     getName = () => {
-        // let currentName = this.inputNameRef.current.value;
         let currentName = this.state.title;
         this.setState({title: ''})
 
         if (!this.state.title) {
-            this.setState({error: false})
+            this.setState({error: "enter something"})
         } else {
             this.props.getNameForAlert(currentName)
-            this.setState({error: true})
+            this.setState({error: ""})
         }
     }
 
-    // onPressEnter=()=>
 
     render = () => {
         return (
@@ -47,10 +46,9 @@ class Component3 extends React.Component {
                     <InnerInput state={this.state}
                                 getName={this.getName}
                                 onChangeInput={this.onChangeInput}
-                        // inputNameRef={this.inputNameRef}
                     />
-
-                    <InnerButton getName={this.getName}/>
+                    <InputNya error={this.state.error} onChange={this.onChangeInput}value={this.state.title}/>
+                    <ButtonNya onClick={this.getName}>Push me</ButtonNya>
                 </div>
 
                 <InnerListOfNames listOfNames={this.props.state.listOfNames}/>
