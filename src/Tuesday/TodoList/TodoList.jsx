@@ -15,17 +15,8 @@ class TodoList extends React.Component {
     nextTaskId = 0;
 
     componentDidMount() {
-        let x = restoreState()
-        this.setState(x, () => {
-            // debugger;
+        this.setState(restoreState(), () => {
             this.nextTaskId = this.state.tasks.length
-            //////---------------------либо же
-            // this.state.tasks.forEach(task => {
-            //             if (task.id >= this.nextTaskId) {
-            //                 this.nextTaskId = task.id + 1
-            //             }
-            //         })
-            /////-----------------------------
         })
 
 
@@ -33,7 +24,6 @@ class TodoList extends React.Component {
 
     state = {
         tasks: [
-            // {id: 1, title: "JS", isDone: true, priority: 'low'},
             // {id: 2, title: "HTML", isDone: true, priority: 'high', created: "21.04.2020", updated: "21.04.2020",finished: "21.04.2020",},
         ], filterValue: "All"
     }
@@ -45,7 +35,7 @@ class TodoList extends React.Component {
         };
 
         this.nextTaskId++;
-        let newTasks = [...this.state.tasks, newTask] ///...this.state.tasks-- раскукоживаем старый массив
+        let newTasks = [...this.state.tasks, newTask]
         this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
     }
     deleteTask = (taskId) => {
@@ -58,17 +48,9 @@ class TodoList extends React.Component {
             return {...t, id: index}
         })
 
-        ///----------------------------------------------------/код -равнозначный  строкам 78-82
-        // newTasks.splice(taskId, 1)
-        // newTasks =newTasks.map((t, index)=>{
-        //
-        //     return {...t, id:index}
-        // })
-        ///----------------------------------------------------
         ///уменьшили переменную для следующего id
         --this.nextTaskId;
-        // debugger;
-        this.setState({tasks: newTasks}, () => saveState(this.state)) ///setState- метод реагирующий на изменение св-ва state
+        this.setState({tasks: newTasks}, () => saveState(this.state))
     }
 
     changeFilter = (newfilterValue) => {

@@ -36,8 +36,7 @@ const QuerySender = (props:OwnPropsType) => {
     return (
         <div style={divstyle}>
             <input type="checkbox" onChange={onCheckBoxClick} checked={props.success}/>
-            <button disabled={props.inProgress} onClick={onSendButtonClick}>SEND</button>
-            <ButtonNya disabled={props.inProgress} onClick={onSendButtonClick}>Click me</ButtonNya>
+            <ButtonNya disabled={props.inProgress} onClick={onSendButtonClick}>SEND</ButtonNya>
             <div style={{color: 'green', fontWeight: 'bold'}}>
                 {props.notification}
             </div>

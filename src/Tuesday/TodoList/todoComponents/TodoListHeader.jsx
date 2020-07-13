@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {ButtonNya} from "../../../Thursday/ButtonComponent";
+import {InputNya} from "../../../Thursday/InputComponent";
 
 class TodoListHeader extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     state = {
-        error: true,
+        error: "",
         title: ""
     }
     onAddTaskClick = () => {
@@ -17,45 +17,35 @@ class TodoListHeader extends React.Component {
         this.setState({title: ""})
 
         if (newText === "") {
-            this.setState({error: true})
+            this.setState({error: "enter something"})
         } else {
-            this.setState({error: false})
+            this.setState({error: ""})
             this.props.addTask(newText);
         }
-
-
     }
 
     onTitleChanged = (e) => {
         debugger
         this.setState({
-            error: false,
+            error: "",
             title: e.currentTarget.value
         })
     };
 
-    onKeyPress = (e) => {
-        if (e.key === "Enter") {
-            this.onAddTaskClick()
-        }
-    };
-
 
     render = () => {
-        let classNameInput = this.state.error ? "error" : "";
         return (
             <div className="">
                 <div className="todoList-header">
                     <h3 className="todoList-header__title">What to Learn</h3>
                     <div className="todoList-newTaskForm">
-                        <input
-                            type="text"
-                            className={classNameInput}
-                            onChange={this.onTitleChanged}
-                            value={this.state.title}
-                            onKeyPress={this.onKeyPress}
-                            placeholder="New task name"/>
-                        <button onClick={this.onAddTaskClick}>Add</button>
+
+                        <InputNya error={this.state.error}
+                                  onChange={this.onTitleChanged}
+                                  value={this.state.title}
+                                  placeholder="New task name"
+                                  onEnter={this.onAddTaskClick}
+                        />
                         <ButtonNya onClick={this.onAddTaskClick}>Add</ButtonNya>
                     </div>
                 </div>
